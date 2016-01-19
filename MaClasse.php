@@ -8,13 +8,12 @@
  */
 interface Movable
 {
-    public function move($dest);
+    const MA_CONSTANTE = 'Hello';
 }
+echo Movable::MA_CONSTANTE;
 
 class Personnage implements Movable
 {
-    public function move($dest)
-    {
-
-    }
 }
+
+echo Personnage::MA_CONSTANTE;

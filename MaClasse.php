@@ -6,7 +6,7 @@
  * Date: 12/01/2016
  * Time: 16:55
  */
-class MaClasse implements Iterator
+class MaClasse implements SeekableIterator
 {
     private $position=0;
     private $tableau=['Premier','Deuxième','Troisième','Quatrième'];

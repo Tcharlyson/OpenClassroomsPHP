@@ -6,7 +6,7 @@
  * Date: 12/01/2016
  * Time: 16:55
  */
-class MaClasse implements SeekableIterator, ArrayAccess
+class MaClasse implements SeekableIterator, ArrayAccess, Countable
 {
     private $position=0;
     private $tableau=['Premier','Deuxième','Troisième','Quatrième'];
@@ -95,6 +95,20 @@ class MaClasse implements SeekableIterator, ArrayAccess
     {
         unset($this->tableau[$offset]);
     }
+
+    /**
+     * Count elements of an object
+     * @link http://php.net/manual/en/countable.count.php
+     * @return int The custom count as an integer.
+     * </p>
+     * <p>
+     * The return value is cast to an integer.
+     * @since 5.1.0
+     */
+    public function count()
+    {
+        return count($this->tableau);
+    }
 }
 
 $objet = new MaClasse;
@@ -114,6 +128,8 @@ echo 'Modification du troisième élément... ';
 $objet[2] = 'Hello world !';
 echo 'Nouvelle valeur : ', $objet[2], '<br /><br />';
 
+echo 'Actuellement, mon tableau comporte ', count($objet), ' entrées<br /><br />';
+
 echo 'Destruction du quatrième élément...<br />';
 unset($objet[3]);
 
@@ -125,7 +141,5 @@ else
 {
     echo 'Tout se passe bien, $objet[3] n\'existe plus !';
 }
-foreach ($objet as $key => $value)
-{
-    echo $key, ' => ', $value, '<br />';
-}
+
+echo '<br /><br />Maintenant, il n\'en comporte plus que ', count($objet), ' !';

@@ -6,7 +6,7 @@
  * Date: 12/01/2016
  * Time: 16:55
  */
-class MaClasse implements SeekableIterator
+class MaClasse implements SeekableIterator, ArrayAccess
 {
     private $position=0;
     private $tableau=['Premier','Deuxième','Troisième','Quatrième'];
@@ -46,15 +46,86 @@ class MaClasse implements SeekableIterator
     {
         return isset($this->tableau[$this->position]);
     }
+    public function offsetExists($offset)
+    {
+        return isset($this->tableau[$offset]);
+    }
+
+    /**
+     * Offset to retrieve
+     * @link http://php.net/manual/en/arrayaccess.offsetget.php
+     * @param mixed $offset <p>
+     * The offset to retrieve.
+     * </p>
+     * @return mixed Can return all value types.
+     * @since 5.0.0
+     */
+    public function offsetGet($offset)
+    {
+        return $this->tableau[$offset];
+    }
+
+    /**
+     * Offset to set
+     * @link http://php.net/manual/en/arrayaccess.offsetset.php
+     * @param mixed $offset <p>
+     * The offset to assign the value to.
+     * </p>
+     * @param mixed $value <p>
+     * The value to set.
+     * </p>
+     * @return void
+     * @since 5.0.0
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->tableau[$offset] = $value;
+    }
+
+    /**
+     * Offset to unset
+     * @link http://php.net/manual/en/arrayaccess.offsetunset.php
+     * @param mixed $offset <p>
+     * The offset to unset.
+     * </p>
+     * @return void
+     * @since 5.0.0
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->tableau[$offset]);
+    }
 }
 
-$objet = new MaClasse();
+$objet = new MaClasse;
 
-foreach($objet as $key => $value)
+echo 'Parcours de l\'objet...<br />';
+foreach ($objet as $key => $value)
 {
-    echo $key, '=>', $value, '<br />';
+    echo $key, ' => ', $value, '<br />';
 }
 
+echo '<br />Remise du curseur en troisième position...<br />';
 $objet->seek(2);
-$objet->rewind();
-echo $objet->current();
+echo 'Élément courant : ', $objet->current(), '<br />';
+
+echo '<br />Affichage du troisième élément : ', $objet[2], '<br />';
+echo 'Modification du troisième élément... ';
+$objet[2] = 'Hello world !';
+echo 'Nouvelle valeur : ', $objet[2], '<br /><br />';
+
+echo 'Destruction du quatrième élément...<br />';
+unset($objet[3]);
+
+if (isset($objet[3]))
+{
+    echo '$objet[3] existe toujours... Bizarre...';
+}
+else
+{
+    echo 'Tout se passe bien, $objet[3] n\'existe plus !';
+}
+foreach ($objet as $key => $value)
+{
+    echo $key, ' => ', $value, '<br />';
+}

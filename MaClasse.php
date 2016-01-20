@@ -1,52 +1,26 @@
 <?php
-trait A
+class A
 {
-    public function saySomething()
+    public final function hello($arg1, $arg2, $arg3 = 1, $arg4 = 'Hello world !')
     {
-        echo 'Je suis le trait A !';
+        echo 'Hello world !';
     }
 }
 
-trait B
-{
-    use A;
+$classeA = new ReflectionClass('A');
+$methode = $classeA->getMethod('hello');
 
-    public function saySomethingElse()
-    {
-        echo 'Je suis le trait B !';
-    }
+echo 'La méthode ', $methode->getName(), ' est ';
+
+if ($methode->isAbstract())
+{
+    echo 'abstraite';
 }
-class MaclasseParent
+elseif ($methode->isFinal())
 {
-
-}
-class MaClasse extends MaclasseParent
-{
-    use B;
-    public function hello()
-    {
-        return 1;
-    }
-}
-
-$o = new ReflectionClass('MaClasse');
-
-// Est-elle abstraite ?
-if ($o->isAbstract())
-{
-    echo 'La classe Personnage est abstraite';
+    echo 'finale';
 }
 else
 {
-    echo 'La classe Personnage n\'est pas abstraite';
-}
-
-// Est-elle finale ?
-if ($o->isFinal())
-{
-    echo 'La classe Personnage est finale';
-}
-else
-{
-    echo 'La classe Personnage n\'est pas finale';
+    echo '« normale »';
 }

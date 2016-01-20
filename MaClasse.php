@@ -31,9 +31,9 @@ class MaClasse extends MaclasseParent
 
 $o = new ReflectionClass('MaClasse');
 
-if ($parent = $o->getParentClass())
+if ($parent = $o->isSubclassOf('MaclasseParent'))
 {
-    echo 'La classe Magicien a un parent : il s\'agit de la classe ', $parent->getName();
+    echo 'La classe Magicien a pour parent la classe MaclasseParent';
 }
 else
 {

@@ -16,8 +16,11 @@ trait B
         echo 'Je suis le trait B !';
     }
 }
+class MaclasseParent
+{
 
-class MaClasse
+}
+class MaClasse extends MaclasseParent
 {
     use B;
     public function hello()
@@ -27,6 +30,12 @@ class MaClasse
 }
 
 $o = new ReflectionClass('MaClasse');
-$o->hasMethod();
-$o->hasConstant();
-$o->hasProperty();
+
+if ($parent = $o->getParentClass())
+{
+    echo 'La classe Magicien a un parent : il s\'agit de la classe ', $parent->getName();
+}
+else
+{
+    echo 'La classe Magicien n\'a pas de parent';
+}

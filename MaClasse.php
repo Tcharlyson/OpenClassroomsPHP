@@ -1,21 +1,24 @@
 <?php
 trait MonTrait
 {
-    public function sayHello()
+    public function speak()
     {
-        echo 'Hello !';
+        echo 'Je suis un trait !';
     }
 }
 
-class MaClasse
+class Mere
+{
+    public function speak()
+    {
+        echo 'Je suis une classe mère !';
+    }
+}
+
+class Fille extends Mere
 {
     use MonTrait;
-
-    public function sayHello()
-    {
-        echo 'Bonjour !';
-    }
 }
 
-$objet = new MaClasse;
-$objet->sayHello(); // Affiche « Bonjour ! ».
+$fille = new Fille;
+$fille->speak(); // Affiche « Je suis un trait ! »

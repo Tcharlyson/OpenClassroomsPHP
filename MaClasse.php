@@ -31,11 +31,22 @@ class MaClasse extends MaclasseParent
 
 $o = new ReflectionClass('MaClasse');
 
-if ($parent = $o->isSubclassOf('MaclasseParent'))
+// Est-elle abstraite ?
+if ($o->isAbstract())
 {
-    echo 'La classe Magicien a pour parent la classe MaclasseParent';
+    echo 'La classe Personnage est abstraite';
 }
 else
 {
-    echo 'La classe Magicien n\'a pas de parent';
+    echo 'La classe Personnage n\'est pas abstraite';
+}
+
+// Est-elle finale ?
+if ($o->isFinal())
+{
+    echo 'La classe Personnage est finale';
+}
+else
+{
+    echo 'La classe Personnage n\'est pas finale';
 }

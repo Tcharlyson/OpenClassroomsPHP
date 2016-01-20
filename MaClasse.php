@@ -1,24 +1,32 @@
 <?php
-trait MonTrait
+trait A
 {
-    public function speak()
+    public function saySomething()
     {
-        echo 'Je suis un trait !';
+        echo 'Je suis le trait A !';
     }
 }
 
-class Mere
+trait B
 {
-    public function speak()
+    use A;
+
+    public function saySomethingElse()
     {
-        echo 'Je suis une classe mère !';
+        echo 'Je suis le trait B !';
     }
 }
 
-class Fille extends Mere
+class MaClasse
 {
-    use MonTrait;
+    use B;
+    public function hello()
+    {
+        return 1;
+    }
 }
 
-$fille = new Fille;
-$fille->speak(); // Affiche « Je suis un trait ! »
+$o = new ReflectionClass('MaClasse');
+$o->hasMethod();
+$o->hasConstant();
+$o->hasProperty();

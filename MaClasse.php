@@ -1,24 +1,32 @@
 <?php
-trait MonTrait
+
+trait HTMLFormater
 {
-    public function hello()
+    public function formatHTML($text)
     {
-        echo 'Hello world !';
+        return '<p>Date : '.date('d/m/Y').'</p>'."\n".
+        '<p>'.nl2br($text).'</p>';
     }
 }
 
-class A
+trait TextFormater
 {
-    use MonTrait;
+    public function formatText($text)
+    {
+        return 'Date : '.date('d/m/Y')."\n".$text;
+    }
 }
 
-class B
+class Writer
 {
-    use MonTrait;
+    use HTMLFormater, TextFormater;
+
+    public function write($text)
+    {
+        file_put_contents('fichier.txt', $this->formatText($text));
+    }
 }
 
-$a = new A;
-$a->hello(); // Affiche « Hello world ! ».
+$w = new Writer;
+$w->write('Hello world!');
 
-$b = new b;
-$b->hello(); // Affiche aussi « Hello world ! ».in du script'; // Ce message s'affiche, cela prouve bien que le script est exécuté jusqu'au bout.

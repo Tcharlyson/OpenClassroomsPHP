@@ -1,32 +1,21 @@
 <?php
-
-trait HTMLFormater
+trait MonTrait
 {
-    public function formatHTML($text)
+    public function sayHello()
     {
-        return '<p>Date : '.date('d/m/Y').'</p>'."\n".
-        '<p>'.nl2br($text).'</p>';
+        echo 'Hello !';
     }
 }
 
-trait TextFormater
+class MaClasse
 {
-    public function formatText($text)
+    use MonTrait;
+
+    public function sayHello()
     {
-        return 'Date : '.date('d/m/Y')."\n".$text;
+        echo 'Bonjour !';
     }
 }
 
-class Writer
-{
-    use HTMLFormater, TextFormater;
-
-    public function write($text)
-    {
-        file_put_contents('fichier.txt', $this->formatText($text));
-    }
-}
-
-$w = new Writer;
-$w->write('Hello world!');
-
+$objet = new MaClasse;
+$objet->sayHello(); // Affiche « Bonjour ! ».
